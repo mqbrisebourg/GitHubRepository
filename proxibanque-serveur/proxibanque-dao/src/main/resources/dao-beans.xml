@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 
+default-autowire="byName"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/data/jpa
+	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/data/repository
+	http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd">
+
+
+	<!-- Etape 0 : Configuration Annotations -->
+
+
+	<context:annotation-config />
+	<context:component-scan base-package="biz.ixxi.proxi.dao" />
+
+	<!-- Etape 1 : Base de donnees = PPC + dataSource -->
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+		<property name="locations">
+			<list>
+				<value>classpath:/db.properties</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSource">
+
+		<property name="driverClassName" value="${db.driver}" />
+
+		<property name="url" value="${db.url}" />
+
+		<property name="username" value="${db.username}" />
+
+		<property name="password" value="${db.password}" />
+
+	</bean>
+
+	<!-- Etape 2 : EntityManager -->
+
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="biz.ixxi.proxi.domaine" />
+		<property name="jpaVendorAdapter">
+
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="database" value="MYSQL" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+
+	<jpa:repositories base-package="biz.ixxi.proxi.dao" />
+
+</beans>
