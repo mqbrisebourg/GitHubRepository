@@ -50,12 +50,69 @@ public class ConseillerService implements IConseillerService {
 		
 	}
 	
+//	public void saveClient(Client client)
+//	{
+//		clientDao.saveAndFlush(client);
+//	}
+	
 	public void saveClient(Client client)
 	{
-		clientDao.saveAndFlush(client);
+		if (client.getIdClient()==null) clientDao.saveAndFlush(client);
+		else 
+		{
+			Long idClient=client.getIdClient();
+			List<Client> listeClientDB = clientDao.findByIdClient(idClient);
+			if (listeClientDB.isEmpty()) clientDao.saveAndFlush(client);
+			else 
+			{
+				Client clientDB=listeClientDB.get(0);
+				copyClient(clientDB,client);
+				clientDao.saveAndFlush(clientDB);
+			}
+			
+		}
+	}
+	
+	public boolean virement(Long numCompteCred,Long numCompteDeb,double montant)
+	{
+		List<Compte> listeCred;
+		List<Compte> listeDeb;
+		Compte compteCred;
+		Compte compteDeb;
+		
+		listeCred=compteDao.findByNumCompte(numCompteCred);
+		listeDeb=compteDao.findByNumCompte(numCompteDeb);
+		
+		if ((listeCred.isEmpty())||(listeDeb.isEmpty())) return false;
+		
+		compteCred=listeCred.get(0);
+		compteDeb=listeDeb.get(0);
+		
+		double soldeDeb=compteDeb.getSolde()-montant;
+		double soldeCred=compteCred.getSolde()+montant;
+		
+		compteDeb.setSolde(soldeDeb);
+		compteCred.setSolde(soldeCred);
+		
+		compteDao.saveAndFlush(compteDeb);
+		compteDao.saveAndFlush(compteCred);
+		return true;
+			
 	}
 	
 	
+	public void copyClient(Client clientCopieur,Client clientCopie)
+	{
+		clientCopieur.setAdresse(clientCopie.getAdresse());
+		clientCopieur.setCodePostal(clientCopie.getCodePostal());
+		clientCopieur.setNom(clientCopie.getNom());
+		clientCopieur.setPrenom(clientCopie.getPrenom());
+		clientCopieur.setTelephone(clientCopie.getTelephone());
+		clientCopieur.setVille(clientCopie.getVille());
+	}
+	
+
+
 
 
 

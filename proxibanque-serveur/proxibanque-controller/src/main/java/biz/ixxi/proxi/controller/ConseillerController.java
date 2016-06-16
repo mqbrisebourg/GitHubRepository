@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -48,11 +50,27 @@ public class ConseillerController {
 	}
 	
 	
+	@RequestMapping(value = "/virement/{numCompteDeb}/{numCompteCred}/{montant}", method = RequestMethod.POST,headers="Accept=application/json")
+	public boolean virement(@PathVariable("numCompteDeb") Long numCompteDeb, @PathVariable("numCompteCred") Long numCompteCred,@PathVariable("numCompteCred") double montant) {
+		
+		return conseillerService.virement(numCompteCred, numCompteDeb, montant);
+	}
+	
+	
 	@RequestMapping(value = "/saveClient", method = RequestMethod.POST,headers="Accept=application/json")
 	public void saveClient(Client client) {
 		
+		
 		conseillerService.saveClient(client);
 	}
+	
+	
+//	@RequestMapping(value = "/saveClient", method = RequestMethod.POST,headers="Accept=application/json")
+//	public Client saveClient(@RequestBody Client client) {
+//		
+//		return client;
+////		conseillerService.saveClient(client);
+//	}
 
 
 	public IConseillerService getConseillerService() {

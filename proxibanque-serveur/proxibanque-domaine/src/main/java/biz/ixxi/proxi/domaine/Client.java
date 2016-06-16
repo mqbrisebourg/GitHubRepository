@@ -65,12 +65,12 @@ public class Client {
 		super();
 	}
 
-	public Long getId() {
+	public Long getIdClient() {
 		return idClient;
 	}
 
-	public void setId(Long id) {
-		this.idClient = id;
+	public void setIdClient(Long idClient) {
+		this.idClient = idClient;
 	}
 
 	public String getNom() {

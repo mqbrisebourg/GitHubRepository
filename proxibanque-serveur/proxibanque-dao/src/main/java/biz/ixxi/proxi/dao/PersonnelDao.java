@@ -13,4 +13,5 @@ import biz.ixxi.proxi.domaine.Personnel;
 @Repository("personnelDao")
 public interface PersonnelDao extends JpaRepository<Personnel,Long>{
 	public List<Personnel> findByLogin(String login);
+	
 }

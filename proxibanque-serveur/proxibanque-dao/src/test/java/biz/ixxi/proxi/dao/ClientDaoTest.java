@@ -9,8 +9,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import biz.ixxi.proxi.domaine.Client;
-import biz.ixxi.proxi.domaine.Conseiller;
-import biz.ixxi.proxi.domaine.Personnel;
+
 
 public class ClientDaoTest {
 
@@ -23,7 +22,7 @@ public class ClientDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		client = new Client(2L,"Client","Jean-François","13 rue de la Clientèle",33400, "ClientVille","0654484848");
+		client = new Client(1L,"Client","Jean-Michel","17 rue de la Clientèle",33400, "ClientVille","0654484857");
 		appContext = new ClassPathXmlApplicationContext("dao-beans.xml");
 		clientdao = (ClientDao) appContext.getBean("clientDao");
 	} 
@@ -32,9 +31,9 @@ public class ClientDaoTest {
 	
 //	@Test
 //	public void testClient() {
-//		clientdao.save(client);
+//		clientdao.saveAndFlush(client);
 //	}
-//	
+	
 	@Test
 	public void testGetClientByConseiller() {
 		//List<Personnel> list =personneldao.findAll();

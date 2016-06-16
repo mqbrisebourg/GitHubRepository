@@ -12,4 +12,5 @@ import biz.ixxi.proxi.domaine.Compte;
 public interface CompteDao extends JpaRepository<Compte, Long> {
 
 	public List<Compte> findByIdClient(Long idClient);
+	public List<Compte> findByNumCompte(Long numCompte);
 }

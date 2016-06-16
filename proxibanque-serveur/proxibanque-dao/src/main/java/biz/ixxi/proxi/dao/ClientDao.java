@@ -11,4 +11,5 @@ import biz.ixxi.proxi.domaine.Client;
 public interface ClientDao extends JpaRepository<Client, Long> {
 
 	public List<Client> findByIdConseiller(Long idConseiller);
+	public List<Client> findByIdClient(Long idClient);
 }
