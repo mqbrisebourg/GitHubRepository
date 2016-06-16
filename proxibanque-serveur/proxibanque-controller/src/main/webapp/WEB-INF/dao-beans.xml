@@ -22,7 +22,7 @@ default-autowire="byName"
 	<context:annotation-config />
 	<context:component-scan base-package="biz.ixxi.proxi.dao" />
 
-	<!-- Etape 1 : Base de donnees = PPC + dataSource -->
+	<!-- Etape 1 : Configuration Spring Data- JPA - Base de donnees = PPC + dataSource -->
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -70,6 +70,7 @@ default-autowire="byName"
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+	<!-- Etape 3 : Définitions des Repositories JPA pour Spring Data -->
 
 	<jpa:repositories base-package="biz.ixxi.proxi.dao" />
 

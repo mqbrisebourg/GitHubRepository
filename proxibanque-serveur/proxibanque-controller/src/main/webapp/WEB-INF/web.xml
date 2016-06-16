@@ -5,6 +5,8 @@
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
 
+<!-- Context-Param permet le chargement des fichiers de définition et configuration des Beans Spring -->
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/service-beans.xml
@@ -12,6 +14,8 @@
 		</param-value>
 	</context-param>
 
+<!--Le filtre CORSFilter permet la configuration des paramètres des sécurité permettant aux Web Services d'
+être consommés par un client distant-->
 
 	<filter>
 		<filter-name>cors</filter-name>
@@ -23,13 +27,15 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-
+<!-- Le ContextLoaderListener permet le chargement du context à partir des fichiers de configuration des Beans Springs
+(définis dans Context-Param) -->
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
 
+<!-- La DispatcherServlet gère l'aiguillage des appels aux Web Services par URL -->
 
 	<servlet>
 		<servlet-name>springrest</servlet-name>

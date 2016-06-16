@@ -23,7 +23,7 @@ public class PersonnelDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		conseiller = new Conseiller("mtconseillere","Conseillère","Marie-Thérèse");
+		conseiller = new Conseiller("Helene","Laffon","Hélène");
 		appContext = new ClassPathXmlApplicationContext("dao-beans.xml");
 		personneldao = (PersonnelDao) appContext.getBean("personnelDao");
 	} 
@@ -40,7 +40,7 @@ public class PersonnelDaoTest {
 		//List<Personnel> list =personneldao.findAll();
 		
 		//Personnel conseillerTest=list.get(0);
-		List<Personnel> liste=personneldao.findByLogin("Mathieu");
+		List<Personnel> liste=personneldao.findByLogin("Helene");
 		Personnel conseiller=liste.get(0);
 		System.out.println(conseiller.getPrenom());
 	}

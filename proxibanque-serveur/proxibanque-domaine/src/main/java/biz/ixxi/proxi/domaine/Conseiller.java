@@ -9,6 +9,18 @@ public class Conseiller extends Personnel {
 
 	private Long idGerant;
 
+	
+	
+	
+	
+	public Long getIdGerant() {
+		return idGerant;
+	}
+
+	public void setIdGerant(Long idGerant) {
+		this.idGerant = idGerant;
+	}
+
 	public Conseiller(Long idPersonnel, String login,  String nom, String prenom, Long idGerant) {
 		super(idPersonnel,login, nom, prenom);
 		this.idGerant = idGerant;

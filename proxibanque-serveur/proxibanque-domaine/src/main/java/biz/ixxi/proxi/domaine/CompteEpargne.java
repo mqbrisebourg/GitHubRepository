@@ -22,5 +22,15 @@ public class CompteEpargne extends Compte {
 	public CompteEpargne() {
 		super();
 	}
+
+	public double getTauxRemuneration() {
+		return tauxRemuneration;
+	}
+
+	public void setTauxRemuneration(double tauxRemuneration) {
+		this.tauxRemuneration = tauxRemuneration;
+	}
+	
+	
 	
 }

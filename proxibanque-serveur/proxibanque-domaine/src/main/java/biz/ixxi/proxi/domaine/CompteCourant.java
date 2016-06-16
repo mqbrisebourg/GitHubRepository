@@ -10,7 +10,20 @@ import javax.persistence.Entity;
 public class CompteCourant extends Compte {
 
 	
-	private double autorisationDecouvert=1000.;
+	private int autorisationDecouvert=1000;
+	
+	
+	
+
+	
+
+	public int getAutorisationDecouvert() {
+		return autorisationDecouvert;
+	}
+
+	public void setAutorisationDecouvert(int autorisationDecouvert) {
+		this.autorisationDecouvert = autorisationDecouvert;
+	}
 
 	public CompteCourant(Long numCompte, Long idClient, int solde, Date dateOuverture) {
 		super(numCompte, idClient, solde, dateOuverture);

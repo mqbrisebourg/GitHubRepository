@@ -14,7 +14,6 @@ import biz.ixxi.proxi.domaine.Client;
 public class ClientDaoTest {
 
 	private Client client;
-	//private PersonnelDao personneldao;
 	private ClientDao clientdao;
 	private ClassPathXmlApplicationContext appContext;
 	
@@ -36,11 +35,19 @@ public class ClientDaoTest {
 	
 	@Test
 	public void testGetClientByConseiller() {
-		//List<Personnel> list =personneldao.findAll();
-		
-		//Personnel conseillerTest=list.get(0);
-		List<Client> liste=clientdao.findByIdPersonnel(2L);
+
+		List<Client> liste=clientdao.findByIdPersonnel(1L);
 		Client client=liste.get(0);
 		System.out.println(client.getPrenom());
+	}
+	
+	
+	@Test
+	public void testGetClientById() {
+
+		List<Client> liste=clientdao.findByIdClient(1L);
+		Client client=liste.get(0);
+		System.out.println(client.getPrenom());
+		assertEquals(client.getPrenom(),"Jean-Michel");
 	}
 }

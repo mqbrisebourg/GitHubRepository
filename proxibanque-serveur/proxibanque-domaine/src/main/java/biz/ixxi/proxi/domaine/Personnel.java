@@ -1,7 +1,7 @@
 package biz.ixxi.proxi.domaine;
 
 import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="TYPE_PERSONNEL")
-@DiscriminatorValue("GENERAL")
+
 @NamedQuery(name="Personnel.findByLogin",query="select p from Personnel p where p.login=?1")
 public abstract class Personnel {
 	@Id
@@ -22,6 +22,8 @@ public abstract class Personnel {
 	private String login;
 	private String nom;
 	private String prenom;
+	
+	
 	public Personnel(Long idPersonnel,String login, String nom, String prenom) {
 		super();
 		this.idPersonnel = idPersonnel;

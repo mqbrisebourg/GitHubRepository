@@ -1,15 +1,20 @@
 package biz.ixxi.proxi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import biz.ixxi.proxi.dao.ClientDao;
+import biz.ixxi.proxi.dao.CompteCourantDao;
 import biz.ixxi.proxi.dao.CompteDao;
+import biz.ixxi.proxi.dao.CompteEpargneDao;
 import biz.ixxi.proxi.dao.PersonnelDao;
 import biz.ixxi.proxi.domaine.Client;
 import biz.ixxi.proxi.domaine.Compte;
+import biz.ixxi.proxi.domaine.CompteCourant;
+import biz.ixxi.proxi.domaine.CompteEpargne;
 import biz.ixxi.proxi.domaine.Personnel;
 
 /**
@@ -35,6 +40,12 @@ public class ConseillerService implements IConseillerService {
 
 	@Autowired
 	private CompteDao compteDao;
+	
+	@Autowired
+	private CompteCourantDao compteCourantDao;
+
+	@Autowired
+	private CompteEpargneDao compteEpargneDao;
 
 	/**
 	 * Méthode retournant un objet Personnel en fonction de son login; et "null" si le conseiller n'est pas dans la base de données.
@@ -64,10 +75,15 @@ public class ConseillerService implements IConseillerService {
 
 	/** 
 	 * Methode retournant la liste des comptes d'un client en fonction de son id.
+	 * La nouvelle implémentation permet de différencier les comptes Epargne et les comptes Courants
 	 */
 	public List<Compte> getCompteByClient(Long idClient) {
-		List<Compte> listeCompte;
-		listeCompte = compteDao.findByIdClient(idClient);
+		List<Compte> listeCompte = new ArrayList<Compte>();
+		List<CompteCourant> listeCompteCourant= compteCourantDao.findByIdClient(idClient);
+		List<CompteEpargne> listeCompteEpargne= compteEpargneDao.findByIdClient(idClient);
+		listeCompte.addAll(listeCompteCourant);
+		listeCompte.addAll(listeCompteEpargne);
+		
 		return listeCompte;
 
 	}
@@ -147,6 +163,41 @@ public class ConseillerService implements IConseillerService {
 		clientCopieur.setPrenom(clientCopie.getPrenom());
 		clientCopieur.setTelephone(clientCopie.getTelephone());
 		clientCopieur.setVille(clientCopie.getVille());
+	}
+	
+	
+	
+
+	public ClientDao getClientDao() {
+		return clientDao;
+	}
+
+	public void setClientDao(ClientDao clientDao) {
+		this.clientDao = clientDao;
+	}
+
+	public CompteDao getCompteDao() {
+		return compteDao;
+	}
+
+	public void setCompteDao(CompteDao compteDao) {
+		this.compteDao = compteDao;
+	}
+
+	public CompteCourantDao getCompteCourantDao() {
+		return compteCourantDao;
+	}
+
+	public void setCompteCourantDao(CompteCourantDao compteCourantDao) {
+		this.compteCourantDao = compteCourantDao;
+	}
+
+	public CompteEpargneDao getCompteEpargneDao() {
+		return compteEpargneDao;
+	}
+
+	public void setCompteEpargneDao(CompteEpargneDao compteEpargneDao) {
+		this.compteEpargneDao = compteEpargneDao;
 	}
 
 	public PersonnelDao getPersonnelDao() {

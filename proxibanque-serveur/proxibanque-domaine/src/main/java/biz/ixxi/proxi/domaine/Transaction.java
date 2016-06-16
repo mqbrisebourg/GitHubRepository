@@ -1,85 +1,85 @@
 package biz.ixxi.proxi.domaine;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+
 
 @Entity
 public class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long numTransaction;
-	private Long idPersonnel;
-	@OneToOne
-	private Client clientDebiteur;
-	@OneToOne
-	private Client clientCrediteur;
-	@OneToOne
-	private Compte compteDebiteur;
-	@OneToOne
-	private Compte compteCrediteur;
-	private double montant;
+	private Long numeroTransaction;
+	private Long numeroCompteDebiteur;
+	private Long numeroCompteCrediteur;
+	private Date date;
+	private int montant;
 	
-	public Transaction(Long numTransaction, Long idPersonnel, Client clientDebiteur, Client clientCrediteur,
-			Compte compteDebiteur, Compte compteCrediteur, double montant) {
-		super();
-		this.numTransaction = numTransaction;
-		this.idPersonnel = idPersonnel;
-		this.clientDebiteur = clientDebiteur;
-		this.clientCrediteur = clientCrediteur;
-		this.compteDebiteur = compteDebiteur;
-		this.compteCrediteur = compteCrediteur;
-		this.montant = montant;
-	}
-	
-	public Transaction() {
-		super();
-	}
-	public Long getNumTransaction() {
-		return numTransaction;
-	}
-	public void setNumTransaction(Long numTransaction) {
-		this.numTransaction = numTransaction;
-	}
-	public Long getIdPersonnel() {
-		return idPersonnel;
-	}
-	public void setIdPersonnel(Long idPersonnel) {
-		this.idPersonnel = idPersonnel;
-	}
-	public Client getClientDebiteur() {
-		return clientDebiteur;
-	}
-	public void setClientDebiteur(Client clientDebiteur) {
-		this.clientDebiteur = clientDebiteur;
-	}
-	public Client getClientCrediteur() {
-		return clientCrediteur;
-	}
-	public void setClientCrediteur(Client clientCrediteur) {
-		this.clientCrediteur = clientCrediteur;
-	}
-	public Compte getCompteDebiteur() {
-		return compteDebiteur;
-	}
-	public void setCompteDebiteur(Compte compteDebiteur) {
-		this.compteDebiteur = compteDebiteur;
-	}
-	public Compte getCompteCrediteur() {
-		return compteCrediteur;
-	}
-	public void setCompteCrediteur(Compte compteCrediteur) {
-		this.compteCrediteur = compteCrediteur;
-	}
-	public double getMontant() {
+	public int getMontant() {
 		return montant;
 	}
-	public void setMontant(double montant) {
+	public void setMontant(int montant) {
+		this.montant = montant;
+	}
+	public Long getNumeroTransaction() {
+		return numeroTransaction;
+	}
+	public void setNumeroTransaction(Long numeroTransaction) {
+		this.numeroTransaction = numeroTransaction;
+	}
+	
+	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public Long getNumeroCompteDebiteur() {
+		return numeroCompteDebiteur;
+	}
+	public void setNumeroCompteDebiteur(Long numeroCompteDebiteur) {
+		this.numeroCompteDebiteur = numeroCompteDebiteur;
+	}
+	public Long getNumeroCompteCrediteur() {
+		return numeroCompteCrediteur;
+	}
+	public void setNumeroCompteCrediteur(Long numeroCompteCrediteur) {
+		this.numeroCompteCrediteur = numeroCompteCrediteur;
+	}
+	
+	
+	public Transaction(Long numeroTransaction, Long numeroCompteDebiteur, Long numeroCompteCrediteur, Date date,
+			int montant) {
+		super();
+		this.numeroTransaction = numeroTransaction;
+		this.numeroCompteDebiteur = numeroCompteDebiteur;
+		this.numeroCompteCrediteur = numeroCompteCrediteur;
+		this.date = date;
+		this.montant = montant;
+	}
+	
+	public Transaction(Long numeroCompteDebiteur, Long numeroCompteCrediteur, Date date, int montant) {
+		super();
+		this.numeroCompteDebiteur = numeroCompteDebiteur;
+		this.numeroCompteCrediteur = numeroCompteCrediteur;
+		this.date = date;
 		this.montant = montant;
 	}
 	
 	
+	public Transaction(Long numeroCompteDebiteur, Long numeroCompteCrediteur, int montant) {
+		super();
+		this.numeroCompteDebiteur = numeroCompteDebiteur;
+		this.numeroCompteCrediteur = numeroCompteCrediteur;
+		this.montant = montant;
+	}
+	public Transaction() {
+		super();
+		
+	}
 
 }

@@ -22,27 +22,22 @@ public class ConseillerDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		conseiller = new Conseiller("mtconseillere","Conseillère","Marie-Thérèse");
+		conseiller = new Conseiller("Helene","Laffon","Hélène");
 		appContext = new ClassPathXmlApplicationContext("dao-beans.xml");
 		conseillerdao = (ConseillerDao) appContext.getBean("conseillerDao");
 	} 
 
 
 	
-//	@Test
-//	public void testSavePersonnel() {
-//		personneldao.save(conseiller);
-//	}
+
 	
 	@Test
-	public void testGetConseillerByLogin() {
-		//List<Personnel> list =personneldao.findAll();
-		
-		//Personnel conseillerTest=list.get(0);
+	public void testGetConseillerByIdGerant() {
+
 		List<Conseiller> liste=conseillerdao.findByIdGerant(3L);
 		Conseiller conseiller=liste.get(0);
 		System.out.println(conseiller.getPrenom());
-		assertEquals(conseiller.getPrenom(),"Hélène");
+		assertEquals(conseiller.getPrenom(),"Mathieu");
 	}
 
 }

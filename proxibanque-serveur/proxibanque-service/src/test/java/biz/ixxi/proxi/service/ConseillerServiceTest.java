@@ -16,7 +16,7 @@ public class ConseillerServiceTest {
 	//private PersonnelDao personneldao;
 	
 	private ClassPathXmlApplicationContext appContext;
-	private ConseillerService conseillerService;
+	private IConseillerService conseillerService;
 	private Client client;
 	
 	@Before
@@ -25,8 +25,8 @@ public class ConseillerServiceTest {
 		
 	appContext = new ClassPathXmlApplicationContext(new String[] {
                 "service-beans.xml", "dao-beans.xml"});
-	conseillerService= (ConseillerService) appContext.getBean("conseillerService");
-	client = new Client(45L,2L,"Consommateur","Jean-Jacques","13 rue du Commerce",56754, "Arnaque-la-Poste","0654484849");
+	conseillerService= (IConseillerService) appContext.getBean("conseillerService");
+	client = new Client(45L,2L,"Clientr","Jean-Michel","13 rue du Client",56754, "Arnaque-la-Poste","0654484849");
 		
 	} 
 	
@@ -35,7 +35,7 @@ public class ConseillerServiceTest {
 //	public void testSave() {
 //		conseillerService.saveClient(client);
 //	}
-//	
+	
 	
 //	@Test
 //	public void testVirement() {

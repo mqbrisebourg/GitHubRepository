@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans default-autowire="byName"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
-	http://www.springframework.org/schema/context 
-	http://www.springframework.org/schema/context/spring-context-3.0.xsd"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans">
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="biz.ixxi.proxi" />
+	<context:component-scan base-package="biz.ixxi.proxi.service" />
 
-	
+<!-- 	Définition du Logger, des PointCut et des Aspects -->
 
+	<bean id="logger" class="biz.ixxi.proxi.aop.Logger"/> 
+
+<aop:config>
+	 <aop:pointcut id="virementPointcut"  expression="execution(* *.virement(..))"/>    		
+		<aop:aspect id="LogAspect" ref="logger">
+		<aop:after-returning method="logMethodTransaction" pointcut-ref="virementPointcut"/>
+	    </aop:aspect>	   
+	</aop:config>
 </beans>
