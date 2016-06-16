@@ -11,11 +11,11 @@ public class CompteEpargne extends Compte {
 
 	private double tauxRemuneration=0.03;
 
-	public CompteEpargne(Long numCompte, Long idClient, double solde, Date dateOuverture) {
+	public CompteEpargne(Long numCompte, Long idClient, int solde, Date dateOuverture) {
 		super(numCompte, idClient, solde, dateOuverture);
 	}
 	
-	public CompteEpargne(Long idClient, double solde, Date dateOuverture) {
+	public CompteEpargne(Long idClient, int solde, Date dateOuverture) {
 		super(idClient, solde, dateOuverture);
 	}
 	

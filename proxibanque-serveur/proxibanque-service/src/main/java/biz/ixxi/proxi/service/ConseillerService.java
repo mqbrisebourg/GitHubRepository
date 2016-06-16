@@ -12,97 +12,135 @@ import biz.ixxi.proxi.domaine.Client;
 import biz.ixxi.proxi.domaine.Compte;
 import biz.ixxi.proxi.domaine.Personnel;
 
+/**
+ * Classe de Service implémentant les méthodes relatives aux cas d'utilisation
+ * des Conseillers
+ * 
+ * @author Stark Industries
+ *
+ */
+
+
 @Service("conseillerService")
 public class ConseillerService implements IConseillerService {
 
+	
+	
+	
 	@Autowired
 	private PersonnelDao personnelDao;
-	
+
 	@Autowired
 	private ClientDao clientDao;
-	
+
 	@Autowired
 	private CompteDao compteDao;
-	
-	
-	
-	public Personnel getPersonnelByLogin(String login){
+
+	/**
+	 * Méthode retournant un objet Personnel en fonction de son login; et "null" si le conseiller n'est pas dans la base de données.
+	 */
+	public Personnel getPersonnelByLogin(String login) {
 		List<Personnel> liste;
 		Personnel conseiller;
 		liste = personnelDao.findByLogin(login);
-		if (liste.isEmpty()) return null;
-		else {conseiller=liste.get(0);
-		return conseiller;}
-		
+		if (liste.isEmpty())
+			return null;
+		else {
+			conseiller = liste.get(0);
+			return conseiller;
+		}
+
 	}
-	
-	public List<Client> getClientByConseiller(Long idConseiller){
+
+	/** 
+	 * Methode retournant la liste des clients d'un conseiller en fonction de son id.
+	 */
+	public List<Client> getClientByConseiller(Long idPersonnel) {
 		List<Client> listeClient;
-		listeClient = clientDao.findByIdConseiller(idConseiller);
+		listeClient = clientDao.findByIdPersonnel(idPersonnel);
 		return listeClient;
-		
+
 	}
-	
-	public List<Compte> getCompteByClient(Long idClient){
+
+	/** 
+	 * Methode retournant la liste des comptes d'un client en fonction de son id.
+	 */
+	public List<Compte> getCompteByClient(Long idClient) {
 		List<Compte> listeCompte;
-		listeCompte= compteDao.findByIdClient(idClient);
+		listeCompte = compteDao.findByIdClient(idClient);
 		return listeCompte;
-		
+
 	}
+
 	
-//	public void saveClient(Client client)
-//	{
-//		clientDao.saveAndFlush(client);
-//	}
-	
-	public void saveClient(Client client)
-	{
-		if (client.getIdClient()==null) clientDao.saveAndFlush(client);
-		else 
-		{
-			Long idClient=client.getIdClient();
+	/** 
+	 * Methode retournant la liste des comptes de la totalité de l'agence.
+	 */
+	public List<Compte> getAllCompte() {
+		List<Compte> listeCompte;
+		listeCompte = compteDao.findAll();
+		return listeCompte;
+
+	}
+
+
+	/** 
+	 * Methode permettant la mise à jour d'un client dans la base de données s'il y existe déjà;
+	 * et sa création si ce n'est pas le cas.
+	 */
+	public void saveClient(Client client) {
+		if (client.getIdClient() == null)
+			clientDao.saveAndFlush(client);
+		else {
+			Long idClient = client.getIdClient();
 			List<Client> listeClientDB = clientDao.findByIdClient(idClient);
-			if (listeClientDB.isEmpty()) clientDao.saveAndFlush(client);
-			else 
-			{
-				Client clientDB=listeClientDB.get(0);
-				copyClient(clientDB,client);
+			if (listeClientDB.isEmpty())
+				clientDao.saveAndFlush(client);
+			else {
+				Client clientDB = listeClientDB.get(0);
+				copyClient(clientDB, client);
 				clientDao.saveAndFlush(clientDB);
 			}
-			
+
 		}
 	}
-	
-	public boolean virement(Long numCompteCred,Long numCompteDeb,double montant)
-	{
+
+	/** 
+	 * Methode permettant d'opérer un virement entre un compte débiteur et un compte créditeur, en 
+	 * fonction de leurs numéros, et du montant entier.
+	 */
+	public boolean virement(Long numCompteCred, Long numCompteDeb, int montant) {
 		List<Compte> listeCred;
 		List<Compte> listeDeb;
 		Compte compteCred;
 		Compte compteDeb;
-		
-		listeCred=compteDao.findByNumCompte(numCompteCred);
-		listeDeb=compteDao.findByNumCompte(numCompteDeb);
-		
-		if ((listeCred.isEmpty())||(listeDeb.isEmpty())) return false;
-		
-		compteCred=listeCred.get(0);
-		compteDeb=listeDeb.get(0);
-		
-		double soldeDeb=compteDeb.getSolde()-montant;
-		double soldeCred=compteCred.getSolde()+montant;
-		
+
+		listeCred = compteDao.findByNumCompte(numCompteCred);
+		listeDeb = compteDao.findByNumCompte(numCompteDeb);
+
+		if ((listeCred.isEmpty()) || (listeDeb.isEmpty()))
+			return false;
+
+		compteCred = listeCred.get(0);
+		compteDeb = listeDeb.get(0);
+
+		int soldeDeb = compteDeb.getSolde() - montant;
+		int soldeCred = compteCred.getSolde() + montant;
+
 		compteDeb.setSolde(soldeDeb);
 		compteCred.setSolde(soldeCred);
-		
+
 		compteDao.saveAndFlush(compteDeb);
 		compteDao.saveAndFlush(compteCred);
 		return true;
-			
+
 	}
-	
-	
-	public void copyClient(Client clientCopieur,Client clientCopie)
-	{
+
+	/** 
+	 * Methode permettant de transférer les proprités d'un client issu de la couche présentation
+	 * à un objet client issu de la base de données, afin de faciliter les opérations de mise à jour.
+	 */
+	public void copyClient(Client clientCopieur, Client clientCopie) {
 		clientCopieur.setAdresse(clientCopie.getAdresse());
 		clientCopieur.setCodePostal(clientCopie.getCodePostal());
 		clientCopieur.setNom(clientCopie.getNom());
@@ -110,21 +148,13 @@ public class ConseillerService implements IConseillerService {
 		clientCopieur.setTelephone(clientCopie.getTelephone());
 		clientCopieur.setVille(clientCopie.getVille());
 	}
-	
-
-
-
-
 
 	public PersonnelDao getPersonnelDao() {
 		return personnelDao;
 	}
 
-
-	
 	public void setPersonnelDao(PersonnelDao personnelDao) {
 		this.personnelDao = (PersonnelDao) personnelDao;
 	}
-	
-	
+
 }

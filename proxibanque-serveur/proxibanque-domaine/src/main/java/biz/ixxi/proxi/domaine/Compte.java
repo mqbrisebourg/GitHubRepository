@@ -24,10 +24,10 @@ public class Compte {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long numCompte;	
 	private Long idClient;
-	private double solde;
+	private int solde;
 	private Date dateOuverture;
 	
-	public Compte(Long numCompte, Long idClient, double solde, Date dateOuverture) {
+	public Compte(Long numCompte, Long idClient, int solde, Date dateOuverture) {
 		super();
 		this.numCompte = numCompte;
 		this.idClient = idClient;
@@ -35,7 +35,7 @@ public class Compte {
 		this.dateOuverture = dateOuverture;
 	}
 	
-	public Compte(Long idClient, double solde, Date dateOuverture) {
+	public Compte(Long idClient, int solde, Date dateOuverture) {
 		super();
 		this.idClient = idClient;
 		this.solde = solde;
@@ -57,10 +57,10 @@ public class Compte {
 	public void setIdClient(Long idClient) {
 		this.idClient = idClient;
 	}
-	public double getSolde() {
+	public int getSolde() {
 		return solde;
 	}
-	public void setSolde(double solde) {
+	public void setSolde(int solde) {
 		this.solde = solde;
 	}
 	public Date getDateOuverture() {

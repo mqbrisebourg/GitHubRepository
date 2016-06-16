@@ -11,6 +11,16 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
+
+
+/**
+ * 
+ * Filtre appelé lors de l'initialisation de l'application Web.
+ * Permet la configuration de la sécurité d'accès aux Web Services REST de sorte à ce qu'ils soient accesibles par
+ * une application client distante.
+ * @author Stark Industries
+ *
+ */
 public class CORSFilter extends OncePerRequestFilter {
 	private static final Log LOG = LogFactory.getLog(CORSFilter.class);
 

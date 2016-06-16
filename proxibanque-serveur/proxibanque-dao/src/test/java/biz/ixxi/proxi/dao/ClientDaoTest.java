@@ -39,7 +39,7 @@ public class ClientDaoTest {
 		//List<Personnel> list =personneldao.findAll();
 		
 		//Personnel conseillerTest=list.get(0);
-		List<Client> liste=clientdao.findByIdConseiller(2L);
+		List<Client> liste=clientdao.findByIdPersonnel(2L);
 		Client client=liste.get(0);
 		System.out.println(client.getPrenom());
 	}

@@ -12,7 +12,7 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idClient;
-	private Long idConseiller;
+	private Long idPersonnel;
 	private String nom;
 	private String prenom;
 	private String adresse;
@@ -24,10 +24,10 @@ public class Client {
 	@OneToOne
 	private CompteEpargne compteEpargne;
 	
-	public Client(Long idClient, Long idConseiller,String nom, String prenom, String adresse, int codePostal, String ville, String telephone) {
+	public Client(Long idClient, Long idPersonnel,String nom, String prenom, String adresse, int codePostal, String ville, String telephone) {
 		super();
 		this.idClient = idClient;
-		this.idConseiller = idConseiller;
+		this.idPersonnel = idPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;
@@ -36,10 +36,10 @@ public class Client {
 		this.telephone = telephone;
 	}
 
-	public Client(Long idConseiller,String nom, String prenom, String adresse, int codePostal, String ville, String telephone,
+	public Client(Long idPersonnel,String nom, String prenom, String adresse, int codePostal, String ville, String telephone,
 			CompteCourant compteCourant, CompteEpargne compteEpargne) {
 		super();
-		this.idConseiller = idConseiller;
+		this.idPersonnel = idPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;
@@ -50,9 +50,9 @@ public class Client {
 		this.compteEpargne = compteEpargne;
 	}
 
-	public Client(Long idConseiller,String nom, String prenom, String adresse, int codePostal, String ville, String telephone) {
+	public Client(Long idPersonnel,String nom, String prenom, String adresse, int codePostal, String ville, String telephone) {
 		super();
-		this.idConseiller = idConseiller;
+		this.idPersonnel = idPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;
@@ -135,6 +135,14 @@ public class Client {
 
 	public void setCompteEpargne(CompteEpargne compteEpargne) {
 		this.compteEpargne = compteEpargne;
+	}
+
+	public Long getIdPersonnel() {
+		return idPersonnel;
+	}
+
+	public void setIdPersonnel(Long idPersonnel) {
+		this.idPersonnel = idPersonnel;
 	}
 	
 	
